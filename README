@@ -5,3 +5,49 @@
   - The output of `bpf_printk` is visible in `cat /sys/kernel/debug/tracing/trace_pipe`
   - Take a look at what `bpf_helpers_defs.h` has to offer
 
+
+[core@ebpf-summit-ctf1 ~]$ sudo docker run --privileged --name ctf-1 --rm --tty --interactive "quay.io/isovalent/ebpf-summit-2021-ctf-challenge-1"
+
+                      __
+                     // \
+                     \\_/ //
+   ''-.._.-''-.._.. -(||)(')
+                     '''
+            Jephen’Tsa@Yellow-Stripe
+
+New Messages (1):
+  From: <Blue Hex>
+  Body: If you send a UDP packet to 100.202.1.1 on port 1138, you might be able
+        to eavesdrop on the secret passphrase in the response packet. But first,
+        you will have to bypass the jamming signal somehow (use iptables-save
+        to see who is jamming the signal).
+        I have left you a sketch in the blue print folder (/bpf).
+
+
+
+ |   ~/dev/cks/google-cloud-sdk                                                                           took 13s   | at kind-kind ⎈
+❯ VM_NAME=ebpf-summit-ctf1
+  |   ~/dev/cks/google-cloud-sdk                                                                                         at kind-kind ⎈
+❯ gcloud compute instances create $VM_NAME \
+    --machine-type=e2-micro \
+    --zone=us-central1-a \
+    --image-project=fedora-coreos-cloud \
+    --image-family=fedora-coreos-stable
+Created [https://www.googleapis.com/compute/v1/projects/grounded-pager-297409/zones/us-central1-a/instances/ebpf-summit-ctf1].
+NAME              ZONE           MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP   STATUS
+ebpf-summit-ctf1  us-central1-a  e2-micro                   10.128.0.2   35.238.7.126  RUNNING
+  |   ~/dev/cks/google-cloud-sdk                                                                           took 15s   | at kind-kind ⎈
+❯ gcloud compute ssh --zone=us-central1-a core@$VM_NAME -- sudo setfacl --modify user:core:rw /var/run/docker.sock
+Updating project ssh metadata...⠼Updated [https://www.googleapis.com/compute/v1/projects/grounded-pager-297409].
+Updating project ssh metadata...done.
+Waiting for SSH key to propagate.
+Warning: Permanently added 'compute.298691266138419629' (ECDSA) to the list of known hosts.
+Connection to 35.238.7.126 closed.
+  |   ~/dev/cks/google-cloud-sdk                                                                           took 22s   | at kind-kind ⎈
+❯ gcloud compute ssh --zone=us-central1-a core@$VM_NAME
+Fedora CoreOS 34.20210725.3.0
+Tracker: https://github.com/coreos/fedora-coreos-tracker
+Discuss: https://discussion.fedoraproject.org/c/server/coreos/
+
+Last login: Wed Aug 18 04:43:32 2021 from 92.107.171.26
+[core@ebpf-summit-ctf1 ~]$ sudo docker run --privileged --name ctf-1 --rm --tty --interactive "quay.io/isovalent/ebpf-summit-2021-ctf-challenge-1"
